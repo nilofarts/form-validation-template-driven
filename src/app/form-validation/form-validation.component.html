@@ -1,0 +1,132 @@
+
+
+
+<!----form validation method-->
+<div class="container">
+		<h1>Form Validation </h1>
+	<div class="row">
+		<!----form validation by angular 6-->
+		<div class="col-sm-4">
+			<form #regsiterForm="ngForm" (ngSubmit)="register(validForm)">
+				<Label>Username</Label>
+				<div>
+					<div class="form-group" [class.has-error]="userName.invalid && userName.touched"
+						[class.has-success]="userName.valid">
+						<input type="text" [(ngModel)]="user.userName" #userName="ngModel" required name="userName"
+							class="form-control" placeholder="User Name" autocomplete="userName">
+						<span class="help-block" *ngIf="userName.errors?.required && userName.touched">
+							User Name is required
+						</span>
+					</div>
+					<!---Email validation by angular 7-->
+					<Label>Email</Label>
+					<div class="form-group" [class.has-error]="email.invalid && email.touched"
+						[class.has-success]="email.valid">
+						<input type="email" required [email]="user.email !== ''" [(ngModel)]="user.email" name="email"
+							class="form-control" placeholder="Email" #email="ngModel" autocomplete="email"
+							[pattern]="emailPattern">
+						<span class="help-block" *ngIf="email.errors?.required && email.touched">
+							Email is required
+						</span>
+						<span class="help-block" *ngIf="email.errors?.email && email.touched && email.errors.pattern">
+							Email is invalid
+						</span>
+					</div>
+					<!---Password validation -->
+					<Label>password</Label>
+					<div class="form-group" [class.has-error]="password.invalid && password.touched"
+						[class.has-success]="password.valid">
+						<input id="password" name="password" placeholder="password" class="form-control" required
+							minlength="4" [(ngModel)]="user.password" #password="ngModel">
+
+						<div *ngIf="password.invalid && (password.dirty || password.touched)">
+
+							<div class="help-block" *ngIf="password.errors.required">
+								password is required.
+							</div>
+							<div class="help-block" *ngIf="password.errors.minlength">
+								password must be at least 4 characters long.
+							</div>
+						</div>
+					</div>
+
+					<!---Number validation -->
+					<Label>Number</Label>
+					<div class="form-group" [class.has-error]="value.invalid && value.touched"
+						[class.has-success]="value.valid">
+						<input type="number" [(ngModel)]="user.value" #value="ngModel" required name="value"
+							class="form-control" placeholder="value" autocomplete="value">
+						<span class="help-block" *ngIf="value.errors?.required && value.touched">
+							Number is required
+						</span>
+					</div>
+					<!---character validation -->
+					<label>character</label>
+					<!-- <div class="form-group">
+						<input type="text" name="field" maxlength="8" onkeydown="return /[a-z]/i.test(event.key)">
+					</div> -->
+					<div class="form-group" [class.has-error]="value.invalid && value.touched"
+						[class.has-success]="value.valid">
+						<input type="text" name="chara" maxlength="8" onkeydown="return /[a-z]/i.test(event.key)"
+							[(ngModel)]="user.chara" #chara="ngModel" required name="chara" class="form-control"
+							placeholder="character" autocomplete="value">
+						<span class="help-block" *ngIf="chara.errors?.required && chara.touched">
+							character is required
+						</span>
+					</div>
+					<!---decimal value validation  -->
+					<label>Decimal Value</label>
+					<!---decimal value validation by directive  -->
+					<!-- <input type="textbox" [(ngModel)]="user.decimalVal" maxlength="678" appTwoDigitDecimalNum [ngModelOptions]="{standalone: true}">-->
+					<div class=" form-group">
+
+						<input id="decimalVal" type="number" #decimalVal="ngModel" [(ngModel)]="user.decimalVal"
+							required pattern="\d{0,2}(\.\d{1,2})?" [ngModelOptions]="{standalone: true}" placeholder="Decimal Value">
+							<!-- \d{0,2}(\.\d{1,2})? -->
+						<div class="error" [hidden]="decimalVal.valid || decimalVal.untouched">
+							<div *ngIf="decimalVal.errors && decimalVal.errors.required">
+									Decimal Value is required
+							</div>
+							<div *ngIf="decimalVal.errors && decimalVal.errors.pattern">
+									Decimal Value is invalid
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<button class="btn btn-primary btn-block" type="submit"
+							[disabled]="regsiterForm.invalid">Signup</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- <Label>decimal</Label>
+					<input name="decimalVal" [ngModel]="user.decimalVal" required [pattern]="decimalPattern" #decimalVal="ngModel">
+					<div *ngIf="decimalVal.errors" [ngClass]="'error'">
+						<div *ngIf="decimalVal.errors.required && userName.touched" >
+								decimal Value  required.
+						</div>
+						<div *ngIf="decimalVal.errors.pattern">
+								decimal Value name not valid.
+						</div>
+					</div> -->
+<!-- <input type="number" [ngModel]="Amount | number: '1.2-2'" (ngModelChange)="updateAmount($event)"> -->
+
+<!-- <div class="form-group">
+					<input type="email" [formControl]="email" class="form-control" id="email" required>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                    class="alert alert-danger">
+                        <div *ngIf="email.errors.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="email.errors.email">
+                            Please enter a valid email.
+                        </div>
+                    </div>
+				</div> -->
+<!-- <input type="text">
+			<input type="number">
+				<input type="password"> -->
+			<!-- <input type="email"> -->
